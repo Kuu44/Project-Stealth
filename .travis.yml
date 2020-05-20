@@ -20,10 +20,8 @@ before_script:
 script:
 - export BUILD_TARGET=StandaloneWindows64; export IMAGE_NAME=${BASE_IMAGE_NAME}-windows;
   ./ci/docker_build.sh
-#- export BUILD_APP_BUNDLE=false;
 - export BUILD_TARGET=Android; export IMAGE_NAME=${BASE_IMAGE_NAME}-android; ./ci/docker_build.sh
-#- export BUILD_APP_BUNDLE=true;
-#- export BUILD_TARGET=Android; export IMAGE_NAME=${BASE_IMAGE_NAME}-android; ./ci/docker_build.sh
+
 before_deploy:
 #Set up git user name and tag this commit
 - git config --local user.name "Kuu44"
@@ -44,9 +42,7 @@ deploy:
   - "./Builds/Android/${BUILD_NAME}.apk"
   skip_cleanup: true
   overwrite: true
-  draft: true  
-  on:
-    tags: true  
+  draft: true
 
 after_success:
 - chmod +x ci/webhook_send.sh
